@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import propTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 import style from './ContactForm.module.css';
 
@@ -57,4 +58,8 @@ export const ContactForm = ({ handleSubmit }) => {
             </button>
         </form>
     );
+};
+
+ContactForm.propTypes = {
+    handleSubmit: propTypes.func.isRequired
 };
