@@ -4,11 +4,11 @@ import style from './ContactList.module.css'
 
 export const ContactList = ({ contacts, deleteContact }) => (
     <div>
-        <ul className={style.contactsList}>
-        {contacts.map(({id, name, number }) => (
-            <li className={style.contactsListItem} key={id}>
-            {name}: {number}
-                <button className={style.btn} type="button" onClick={() => deleteContact(id)}>
+        <ul className={style.list}>
+        {contacts.map((contact) => (
+            <li className={style.listItem} key={contact.id}>
+            {contact.name}: {contact.number}
+                <button className={style.btn} type="button" onClick={() => deleteContact(contact.id)}>
                 Delete
             </button>
             </li>
@@ -25,4 +25,5 @@ ContactList.propTypes = {
             number: propTypes.string.isRequired,
         })
     ),
+    deleteContact: propTypes.func.isRequired
 };

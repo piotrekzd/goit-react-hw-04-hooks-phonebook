@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-// import propTypes from 'prop-types';
-import { nanoid } from 'nanoid';
+import propTypes from 'prop-types';
 import style from './ContactForm.module.css';
 
 export const ContactForm = ({ handleSubmit }) => {
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
-    let id = nanoid();
 
     const handleName = e => {
         const { value } = e.target;
@@ -27,10 +25,9 @@ export const ContactForm = ({ handleSubmit }) => {
 
     return (
         <form className={style.form} onSubmit={handleFormSubmit}>
-            <label htmlFor={id}>Name</label>
+            <label>Name</label>
             <input
                 className={style.input}
-                id={id}
                 onChange={handleName}
                 value={name}
                 type="text"
@@ -40,10 +37,9 @@ export const ContactForm = ({ handleSubmit }) => {
                 placeholder='Enter name'
                 required
             />
-            <label htmlFor={id}>Phone</label>
+            <label>Phone</label>
             <input
                 className={style.input}
-                id={id}
                 type="tel"
                 name="number"
                 value={number}
@@ -60,6 +56,6 @@ export const ContactForm = ({ handleSubmit }) => {
     );
 };
 
-// ContactForm.propTypes = {
-//     handleSubmit: propTypes.func.isRequired
-// };
+ContactForm.propTypes = {
+    handleSubmit: propTypes.func.isRequired
+};

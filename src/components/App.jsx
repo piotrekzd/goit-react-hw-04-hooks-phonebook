@@ -5,7 +5,6 @@ import { ContactList } from './ContactList/ContactList';
 import { nanoid } from 'nanoid';
 import style from './App.module.css';
 
-
 export const App = () => {
   const [contacts, setContacts] = useState([
     { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -44,7 +43,7 @@ export const App = () => {
     const name = e.name;
     const number = e.number;
     const contactsList = [...contacts];
-    let id = nanoid();
+    const id = nanoid();
 
     if (contactsList.findIndex(contact => name === contact.name) !== -1) {
       alert(`${name} is already in your contacts.`)
@@ -56,7 +55,8 @@ export const App = () => {
   
   const handleFilter = () => {
     const filterContacts = contacts.filter(contact => {
-      return contact.name.toLowerCase().includes(filter.toLowerCase());
+      const lowerCase = filter.toLowerCase();
+      return contact.name.toLowerCase().includes(lowerCase);
     });
     return filterContacts;
   };
@@ -68,14 +68,14 @@ export const App = () => {
   return (
     <div>
       <h1 className={style.header}>Phonebook</h1>
-      <ContactForm onSubmit={handleSubmit} />
+      <ContactForm handleSubmit={handleSubmit} />
       <Filter filter={filter} onChange={handleChange} />
       {contacts.length === 0 ? (
         <p className={style.paragraph}>There are no contacts on your list yet</p>
       ) : (
         <ContactList
           contacts={handleFilter()}
-          toDelete={deleteContact}
+          deleteContact={deleteContact}
         />
       )}
     </div>

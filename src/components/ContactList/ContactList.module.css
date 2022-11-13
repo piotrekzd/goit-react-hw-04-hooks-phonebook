@@ -1,8 +1,8 @@
-.contactsList {
+.list {
     margin-left: 0;
 }
 
-.contactsListItem {
+.listItem {
     padding: 10px 10px 10px 0;
     font-weight: 500;
 }
