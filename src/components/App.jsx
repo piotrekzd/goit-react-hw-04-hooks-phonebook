@@ -15,7 +15,7 @@ export const App = () => {
   
   const [firstRender, setRender] = useState(true);
   const [filter, setFilter] = useState('');
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {
     if (firstRender) {
@@ -54,11 +54,9 @@ export const App = () => {
   };
   
   const handleFilter = () => {
-    const filterContacts = contacts.filter(contact => {
-      const lowerCase = filter.toLowerCase();
-      return contact.name.toLowerCase().includes(lowerCase);
-    });
-    return filterContacts;
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
   };
 
   const deleteContact = idToDelete => {
