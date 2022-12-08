@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import style from './ContactForm.module.css';
 
-export const ContactForm = ({ handleSubmit }) => {
+export const ContactForm = ({ onSubmit }) => {
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
 
@@ -19,7 +19,7 @@ export const ContactForm = ({ handleSubmit }) => {
     const handleFormSubmit = e => {
         e.preventDefault();
         const form = e.currentTarget;
-        handleSubmit({ name: name, number: number });
+        onSubmit({ name: name, number: number });
         form.reset();
     };
 
@@ -57,5 +57,5 @@ export const ContactForm = ({ handleSubmit }) => {
 };
 
 ContactForm.propTypes = {
-    handleSubmit: propTypes.func.isRequired
+    onSubmit: propTypes.func.isRequired
 };

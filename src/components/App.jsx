@@ -13,47 +13,33 @@ export const App = () => {
     { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
   ]);
   
-  const [firstRender, setRender] = useState(true);
-  const [filter, setFilter] = useState('');
-  useEffect(() => {}, []);
-
   useEffect(() => {
-    if (firstRender) {
-      const localContacts = localStorage.getItem('contacts');
+    localStorage.setItem('contacts', JSON.stringify(contacts))
+  }, [contacts]);
 
-      if (localContacts !== 'undefined') {
-        const parseContacts = JSON.parse(localContacts);
+  const [filter, setFilter] = useState('');
 
-        if (parseContacts) {
-          setContacts(parseContacts);
-        };
+  const addContact = ({ name, number }) => {
+    const lowerCase = name.toLowerCase();
+    let onTheList = false;
+    const newContact = { id: nanoid(), name, number };
+    contacts.forEach(contact => {
+      if (contact.name.toLowerCase() === lowerCase) {
+        alert(`${contact.name} is already on the list`);
+        onTheList = true;
       };
-      setRender(false);
-    } else {
-      localStorage.setItem('contacts', JSON.stringify('contacts'));
+    });
+    if (onTheList) {
+      return;
     };
-  }, [contacts, firstRender]);
-  
-  const handleChange = e => {
-    const { value } = e.target;
-    setFilter(value);
+    setContacts(prevState => prevState.concat(newContact));
   };
-  
-  const handleSubmit = e => {
-    const name = e.name;
-    const number = e.number;
-    const contactsList = [...contacts];
-    const id = nanoid();
 
-    if (contactsList.findIndex(contact => name === contact.name) !== -1) {
-      alert(`${name} is already in your contacts.`)
-    } else {
-      contactsList.push({ id, name, number });
-    };
-    setContacts(contactsList)
+  const handleChange = e => {
+    setFilter(e.currentTarget.value);
   };
   
-  const handleFilter = () => {
+  const handleFilterChange = () => {
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );
@@ -66,13 +52,13 @@ export const App = () => {
   return (
     <div>
       <h1 className={style.header}>Phonebook</h1>
-      <ContactForm handleSubmit={handleSubmit} />
-      <Filter filter={filter} onChange={handleChange} />
+      <ContactForm onSubmit={addContact} />
+      <Filter value={filter} onChange={handleChange} />
       {contacts.length === 0 ? (
         <p className={style.paragraph}>There are no contacts on your list yet</p>
       ) : (
         <ContactList
-          contacts={handleFilter()}
+          contacts={handleFilterChange()}
           deleteContact={deleteContact}
         />
       )}
